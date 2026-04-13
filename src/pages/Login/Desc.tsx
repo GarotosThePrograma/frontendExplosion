@@ -1,5 +1,5 @@
-import { Stack, Text } from "@chakra-ui/react";
-
+import { Flex, Stack, Text } from "@chakra-ui/react";
+import { FaExplosion } from "react-icons/fa6";
 
 export default function Desc() {
   return (
@@ -16,14 +16,38 @@ export default function Desc() {
 
       padding="48px"
     >
-      <Text
-        fontWeight="bold"
-        fontSize="30px"
+      <Flex
+        alignItems="center"
+        justifyContent="center"
 
-        textAlign="center"
+        gap="4px"
       >
-        Explosin Store
-      </Text>
+        <Flex
+          width="32px"
+          height="32px"
+
+          fontWeight="bold"
+          fontSize="24px"
+          bgColor="#FFFFFF"
+
+          alignItems="center"
+          justifyContent="center"
+
+          borderRadius="8px"
+        >
+        <FaExplosion 
+          color="#FF6500"
+        /></Flex>
+          <Text
+          fontWeight="bold"
+          fontSize="28px"
+
+          textAlign="center"
+        >
+          Explosion Store
+        </Text>
+      </Flex>
+      
       <Text
         fontWeight="semibold"
         fontSize="24px"
