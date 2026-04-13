@@ -1,5 +1,5 @@
 import { Box, Center } from "@chakra-ui/react";
-import Form from "./form";
+import Form from "./Form";
 import Desc from "./Desc";
 
 export default function Login() {
@@ -13,21 +13,7 @@ export default function Login() {
         alignItems="center"
       >
         <Desc />
-        <Box
-          display="flex"
-          bgColor="white"
-          width="auto"
-          height="auto"
-          borderTopRightRadius="16px"
-          borderBottomRightRadius="16px"
-
-          alignItems="center"
-          justifyContent="center"
-
-          padding="48px"
-        >
-          <Form />
-        </Box>
+        <Form />
       </Box>
     </Center>
   )
