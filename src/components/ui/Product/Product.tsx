@@ -1,7 +1,8 @@
 import { Box, Button, IconButton, Stack, Text } from "@chakra-ui/react";
 import { MdOutlineFavoriteBorder, MdOutlineShoppingCart } from "react-icons/md";
+import type { productProps } from "./product.interface.";
 
-export default function Product() {
+export default function Product({name, price, img}: productProps) {
 
   return (
     <Stack
@@ -22,7 +23,7 @@ export default function Product() {
         >
           <MdOutlineFavoriteBorder />
         </IconButton>
-
+        <img src={img} />
       </Box>
       <Stack
         gap="0px"
@@ -40,7 +41,7 @@ export default function Product() {
             fontWeight="medium"
             fontSize="14px"
             color="black"
-          >Placa de Vídeo RTX 4070 Ti Super 16GB GDDR6X</Text>
+          >{name}</Text>
         </Button>
         <Text
           width="100%"
@@ -57,13 +58,13 @@ export default function Product() {
           fontWeight="normal"
           fontSize="10px"
           color="#6B7280"
-        ><s>R$ 5.999,90</s></Text>
+        ><s>R$ {Math.round(price * 1.1)}</s></Text>
         <Text
           width="100%"
           fontWeight="bold"
           fontSize="20px"
           color="#FF6500"
-        >R$ 4.999,90</Text>
+        >R$ {price}</Text>
         <Text
           width="100%"
           fontWeight="normal"
