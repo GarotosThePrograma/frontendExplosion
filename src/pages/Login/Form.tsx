@@ -10,9 +10,13 @@ export default function Form() {
 
   async function SaveLogin() {
     try {
+      if(!email || !password) {
+        alert("Por favor, preencha os campos obrigatórios corretamente!");
+        return;
+      }
       const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', { //Banco aberto
-        email:email, //john@mail.com
-        password:password //changeme
+        email: email, //john@mail.com
+        password: password //changeme
       });
 
       localStorage.setItem("token", response.data.access_token);
