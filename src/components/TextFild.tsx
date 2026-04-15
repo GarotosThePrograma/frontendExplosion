@@ -12,7 +12,6 @@ export default function TextFild({ name, value, onChange }: { name: string; valu
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <Field.HelperText>This field is required</Field.HelperText>
     </Field.Root>
   );
 }

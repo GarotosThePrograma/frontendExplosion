@@ -14,7 +14,6 @@ export default function NumberFild({ name, value, onChange }: { name: string; va
           color="#111827"
         />
       </NumberInput.Root>
-      <Field.HelperText>This field is required</Field.HelperText>
     </Field.Root>
   );
 }

@@ -23,7 +23,13 @@ export default function Product({name, price, img}: productProps) {
         >
           <MdOutlineFavoriteBorder />
         </IconButton>
-        <img src={img} />
+        <Box
+          width="100%"
+          height="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          ><img src={img} /></Box>
       </Box>
       <Stack
         gap="0px"
