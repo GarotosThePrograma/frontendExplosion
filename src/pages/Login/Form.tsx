@@ -14,9 +14,9 @@ export default function Form() {
         alert("Por favor, preencha os campos obrigatórios corretamente!");
         return;
       }
-      const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', { //Banco aberto
-        email: email, //john@mail.com
-        password: password //changeme
+      const response = await axios.post('http://192.168.1.23:5076/api/auth/login', { //Banco aberto: https://api.escuelajs.co/api/v1/auth/login
+        Email: email, //john@mail.com
+        Password: password //changeme
       });
 
       localStorage.setItem("token", response.data.access_token);

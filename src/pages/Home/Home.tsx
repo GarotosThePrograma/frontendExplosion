@@ -7,13 +7,13 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [product, setProduct] = useState([
-    { title: '', price: 0, images: [] },
+    { name: '', price: 0, image: '' },
   ]);
 
   async function fetchData() {
     const response = await axios.get(
-      'https://api.escuelajs.co/api/v1/products',
-    ); //Banco aberto
+      'http://192.168.1.23:5076/api/Products/productslist',
+    ); //Banco aberto: https://api.escuelajs.co/api/v1/products
     setProduct(response.data);
   }
 
@@ -32,9 +32,9 @@ export default function Home() {
         {product.slice(0, 4).map((product, index) => (
           <Product
             key={index}
-            name={product.title}
+            name={product.name}
             price={product.price}
-            img={product.images[0]}
+            img={product.image}
           />
         ))}
       </Center>
