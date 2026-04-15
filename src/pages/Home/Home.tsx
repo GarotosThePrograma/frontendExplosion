@@ -6,14 +6,15 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
+  const baseUrl = import.meta.env.VITE_API_URL;
   const [product, setProduct] = useState([
     { name: '', price: 0, image: '' },
   ]);
 
   async function fetchData() {
     const response = await axios.get(
-      'http://192.168.1.23:5076/api/Products/productslist',
-    ); //Banco aberto: https://api.escuelajs.co/api/v1/products
+      `${baseUrl}/Products/productslist`,
+    );
     setProduct(response.data);
   }
 

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Product from '../../../components/ui/Product/Product';
 
 export default function ProductRegister() {
+  const baseUrl = import.meta.env.VITE_API_URL;
   const [product, setProduct] = useState({
     name: '',
     price: '',
@@ -28,7 +29,7 @@ export default function ProductRegister() {
         alert('Por favor, preencha os campos obrigatórios corretamente!');
         return;
       }
-      const response = await axios.post('http://192.168.1.23:5076/api/Products/createproduct', {
+      const response = await axios.post(`${baseUrl}/Products/createproduct`, {
         Name: product.name,
         Price: Number(product.price),
         Stock: Number(product.stock),
@@ -36,7 +37,7 @@ export default function ProductRegister() {
         Type: Number(product.type),
         Description: product.description
       });
-      //localStorage.setItem("product", response.data)
+      localStorage.setItem("product", response.data)
       console.log(response.data);
     } catch (erro) {
       console.error('Erro ao registrar o produto', erro);
@@ -58,7 +59,7 @@ export default function ProductRegister() {
           <Product
             name={product.name||"Nome do produto"}
             price={Number(product.price)||0}
-            img={product.image||"https://via.placeholder.com/232"}
+            img={product.image||"https://placehold.co/232x232/png"}
           />
           <Register 
             product={product}

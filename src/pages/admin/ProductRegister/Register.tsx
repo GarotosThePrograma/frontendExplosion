@@ -3,7 +3,7 @@ import TextFild from '../../../components/TextFild';
 import NumberFild from '../../../components/NumberFild';
 import type { registerProps } from './register.interface.';
 
-export default function Register({product, setProduct, saveProduct}:{product:registerProps, setProduct:(p:registerProps)=>void,saveProduct:()=>void}) {
+export default function Register({product, setProduct, saveProduct}:{product:registerProps, setProduct:(product:registerProps)=>void,saveProduct:()=>void}) {
 
   return (
     <Stack

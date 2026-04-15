@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Form() {
+  const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,9 +15,9 @@ export default function Form() {
         alert("Por favor, preencha os campos obrigatórios corretamente!");
         return;
       }
-      const response = await axios.post('http://192.168.1.23:5076/api/auth/login', { //Banco aberto: https://api.escuelajs.co/api/v1/auth/login
-        Email: email, //john@mail.com
-        Password: password //changeme
+      const response = await axios.post(`${baseUrl}/auth/login`, {
+        Email: email,
+        Password: password
       });
 
       localStorage.setItem("token", response.data.access_token);
