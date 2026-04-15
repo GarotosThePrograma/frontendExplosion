@@ -37,7 +37,6 @@ export default function ProductRegister() {
         Type: Number(product.type),
         Description: product.description
       });
-      localStorage.setItem("product", response.data)
       console.log(response.data);
     } catch (erro) {
       console.error('Erro ao registrar o produto', erro);

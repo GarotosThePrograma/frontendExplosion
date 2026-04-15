@@ -1,6 +1,6 @@
 import { Button, Stack } from '@chakra-ui/react';
-import TextFild from '../../../components/TextFild';
-import NumberFild from '../../../components/NumberFild';
+import TextFild from '../../../components/ui/filds/TextFild';
+import NumberFild from '../../../components/ui/filds/NumberFild';
 import type { registerProps } from './register.interface.';
 
 export default function Register({product, setProduct, saveProduct}:{product:registerProps, setProduct:(product:registerProps)=>void,saveProduct:()=>void}) {

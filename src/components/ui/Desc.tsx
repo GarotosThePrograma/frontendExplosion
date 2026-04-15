@@ -7,7 +7,7 @@ export default function Desc() {
       display="flex"
       bgColor="#0060B1"
       width="347.48px"
-      height="384px"
+      height="100%"
       borderTopLeftRadius="16px"
       borderBottomLeftRadius="16px"
 

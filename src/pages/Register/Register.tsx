@@ -2,10 +2,10 @@ import { Box, Center } from '@chakra-ui/react';
 import Form from './Form';
 import Desc from '../../components/ui/Desc';
 
-export default function Login() {
+export default function Register() {
   return (
     <Center h="100vh" bgColor="#f5f5f5f5">
-      <Box display="flex" alignItems="center" height="384px">
+      <Box display="flex" alignItems="center" height="466px">
         <Desc />
         <Form />
       </Box>
