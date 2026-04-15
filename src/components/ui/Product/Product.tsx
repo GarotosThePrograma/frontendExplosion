@@ -46,7 +46,7 @@ export default function Product({name, price, img}: productProps) {
             width="100%"
             fontWeight="medium"
             fontSize="14px"
-            color="black"
+            color="#000000"
           >{name}</Text>
         </Button>
         <Text

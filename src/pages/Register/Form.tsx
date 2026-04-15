@@ -1,57 +1,58 @@
-import { Button, Field, Fieldset, Input, Stack, Box } from "@chakra-ui/react"
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Button, Fieldset, Stack, Box } from '@chakra-ui/react';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import TextField from '../../components/ui/filds/TextField';
 
-export default function Form() {
+export default function RegisterForm() {
   const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  async function SaveLogin() {
+  async function SaveRegister() {
     try {
-      if(!name || !email || !password) {
-        alert("Por favor, preencha os campos obrigatórios corretamente!");
+      if (!name || !email || !password || !confirmPassword) {
+        alert('Por favor, preencha todos os campos obrigatórios!');
         return;
       }
+
+      if (password !== confirmPassword) {
+        alert('As senhas digitadas não coincidem. Tente novamente.');
+        return;
+      }
+
       const response = await axios.post(`${baseUrl}/auth/register`, {
         Name: name,
         Email: email,
-        Password: password
+        Password: password,
       });
 
-      localStorage.setItem("token", response.data.access_token);
-      console.log("Sucesso ao Logar");
+      localStorage.setItem('token', response.data.access_token);
+      console.log('Sucesso ao Cadastrar');
       navigate('/');
-    } 
-    catch (erro) {
-      console.error("Erro ao Logar", erro);
+    } catch (erro) {
+      console.error('Erro ao Cadastrar', erro);
     }
   }
 
   return (
     <Box
       display="flex"
-      bgColor="white"
-      width="auto"
-      height="auto"
+      flex="1"
+      bgColor="#FFFFFF"
       borderTopRightRadius="16px"
       borderBottomRightRadius="16px"
-
       alignItems="center"
       justifyContent="center"
-
       padding="48px"
     >
-      <Fieldset.Root size="lg" maxW="md">
+      <Fieldset.Root>
         <Stack>
-          <Fieldset.Legend
-            fontWeight="bold"
-            fontSize="28px"
-            color="#111827"
-          >
+          <Fieldset.Legend fontWeight="bold" fontSize="28px" color="#000000">
             Cadastre-se
           </Fieldset.Legend>
           <Fieldset.HelperText
@@ -63,76 +64,46 @@ export default function Form() {
           </Fieldset.HelperText>
         </Stack>
 
-        <Fieldset.Content>
-          <Field.Root>
-            <Field.Label
-              fontWeight="medium"
-              fontSize="14px"
-              color="#111827"
-            >
-              Nome
-            </Field.Label>
-            <Input 
-              color="black"
-              placeholder="nome"
-              name="name" 
-              type="name"
+        <Fieldset.Content gap="8px">
+          <TextField
+            name="Nome"
+            type="text"
+            value={name}
+            onChange={(value) => setName(value)}
+          />
 
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </Field.Root>
+          <TextField
+            name="E-mail"
+            type="email"
+            value={email}
+            onChange={(value) => setEmail(value)}
+          />
 
-          <Field.Root>
-            <Field.Label
-              fontWeight="medium"
-              fontSize="14px"
-              color="#111827"
-            >
-              E-mail
-            </Field.Label>
-            <Input 
-              color="black"
-              placeholder="email"
-              name="email" 
-              type="email"
+          <TextField
+            name="Senha"
+            type="password"
+            value={password}
+            onChange={(value) => setPassword(value)}
+          />
 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Field.Root>
-
-          <Field.Root>
-            <Field.Label
-              fontWeight="medium"
-              fontSize="14px"
-              color="#111827"
-            >
-              Senha
-            </Field.Label>
-            <Input 
-              color="black"
-              placeholder="senha"
-              name="password" 
-              type="password" 
-
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Field.Root>
+          <TextField
+            name="Confirmar Senha"
+            type="password"
+            value={confirmPassword}
+            onChange={(value) => setConfirmPassword(value)}
+          />
         </Fieldset.Content>
 
-        <Button 
+        <Button
+          mt="32px"
           variant="solid"
-          type="submit"
-          bgColor="#E55A00"
-          color="white"
-
-          onClick={SaveLogin}
+          bgColor="#FF6500"
+          color="#FFFFFF"
+          onClick={SaveRegister}
         >
           Crie sua conta
         </Button>
       </Fieldset.Root>
     </Box>
-  )
+  );
 }

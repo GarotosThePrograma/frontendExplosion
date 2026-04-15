@@ -36,14 +36,14 @@ export default function LoginTest() {
         padding="32px"
       >
         <Input
-          color="black"
+          color="#000000"
           placeholder="email"
 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></Input>
         <Input
-          color="black"
+          color="#000000"
           placeholder="senha"
 
           value={password}

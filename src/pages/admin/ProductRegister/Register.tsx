@@ -1,49 +1,84 @@
-import { Button, Stack } from '@chakra-ui/react';
-import TextFild from '../../../components/ui/filds/TextFild';
-import NumberFild from '../../../components/ui/filds/NumberFild';
+import { Button, Fieldset, Box, Stack } from '@chakra-ui/react';
+import TextField from '../../../components/ui/filds/TextField';
+import NumberField from '../../../components/ui/filds/NumberField';
 import type { registerProps } from './register.interface.';
 
-export default function Register({product, setProduct, saveProduct}:{product:registerProps, setProduct:(product:registerProps)=>void,saveProduct:()=>void}) {
-
+export default function Register({
+  product,
+  setProduct,
+  saveProduct,
+}: {
+  product: registerProps;
+  setProduct: (product: registerProps) => void;
+  saveProduct: () => void;
+}) {
   return (
-    <Stack
-      gap="16px"
+    <Box
+      display="flex"
+      flex="1"
+      bgColor="#FFFFFF"
+      borderRadius="16px"
+      alignItems="center"
+      justifyContent="center"
+      padding="32px"
     >
-      <Stack>
-        <TextFild
-          name="Name"
-          value={product.name}
-          onChange={(value) => setProduct({ ...product, name: value })}
-        />
-        <NumberFild
-          name="Price"
-          value={product.price}
-          onChange={(value) => setProduct({ ...product, price: value })}
-        />
-        <NumberFild
-          name="Stock"
-          value={product.stock}
-          onChange={(value) => setProduct({ ...product, stock: value })}
-        />
-        <TextFild
-          name="Image"
-          value={product.image}
-          onChange={(value) => setProduct({ ...product, image: value })}
-        />
-        <TextFild
-          name="Type"
-          value={product.type}
-          onChange={(value) => setProduct({ ...product, type: value })}
-        />
-        <TextFild
-          name="Description"
-          value={product.description}
-          onChange={(value) => setProduct({ ...product, description: value })}
-        />
-      </Stack>
-      <Button bgColor="#FF6500" color="#FFFFFF" onClick={saveProduct}>
-        Cadastrar Produto
-      </Button>
-    </Stack>
+      <Fieldset.Root>
+        <Stack>
+          <Fieldset.Legend fontWeight="bold" fontSize="28px" color="#111827">
+            Cadastrar Produto
+          </Fieldset.Legend>
+          <Fieldset.HelperText
+            fontWeight="normal"
+            fontSize="14px"
+            color="#6B7280"
+          >
+            Insira os detalhes do novo item da loja.
+          </Fieldset.HelperText>
+        </Stack>
+
+        <Fieldset.Content gap="8px">
+          <TextField
+            name="Name"
+            value={product.name}
+            onChange={(value) => setProduct({ ...product, name: value })}
+          />
+          <NumberField
+            name="Price"
+            value={product.price}
+            onChange={(value) => setProduct({ ...product, price: value })}
+          />
+          <NumberField
+            name="Stock"
+            value={product.stock}
+            onChange={(value) => setProduct({ ...product, stock: value })}
+          />
+          <TextField
+            name="Image"
+            value={product.image}
+            onChange={(value) => setProduct({ ...product, image: value })}
+          />
+          <TextField
+            name="Type"
+            value={product.type}
+            onChange={(value) => setProduct({ ...product, type: value })}
+          />
+          <TextField
+            name="Description"
+            value={product.description}
+            onChange={(value) => setProduct({ ...product, description: value })}
+          />
+        </Fieldset.Content>
+
+        <Button
+          mt="32px"
+          variant="solid"
+          bgColor="#FF6500"
+          color="#FFFFFF"
+          onClick={saveProduct}
+        >
+          Salvar Produto
+        </Button>
+      </Fieldset.Root>
+    </Box>
   );
 }

@@ -5,7 +5,7 @@ import Desc from '../../components/ui/Desc';
 export default function Register() {
   return (
     <Center h="100vh" bgColor="#f5f5f5f5">
-      <Box display="flex" alignItems="center" height="466px">
+      <Box display="flex" alignItems="stretch" width="800px">
         <Desc />
         <Form />
       </Box>

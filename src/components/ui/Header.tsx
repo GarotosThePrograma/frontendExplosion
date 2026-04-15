@@ -6,8 +6,11 @@ import { MdOutlineFavoriteBorder, MdOutlinePersonOutline, MdOutlineShoppingCart 
 export default function Header() {
   return (
     <Flex
-      position="absolute"
-      width="100vw"
+      position="sticky" 
+      top="0"
+      zIndex="999" 
+      width="100%" 
+      
       gap="128px"
       paddingY="18px"
       paddingX="32px"
@@ -46,6 +49,7 @@ export default function Header() {
 
           fontWeight="bold"
           fontSize="24px"
+          color="#FFFFFF"
         >
           Explosion Store
         </Text>
@@ -57,7 +61,7 @@ export default function Header() {
         <Input
           bgColor="#FFFFFF"
           placeholder="Busque por produtos, marcas..."
-
+          color="#000000"
           border="none"
           borderRadius="100px"
         ></Input>
@@ -86,12 +90,10 @@ export default function Header() {
           <IconButton
             bgColor="transparent"
             color="#FFFFFF"
-
-            
           >
             <MdOutlinePersonOutline />
           </IconButton>
-          <Box>
+          <Box color="#FFFFFF">
             <Text
               fontWeight="normal"
               fontSize="12px"

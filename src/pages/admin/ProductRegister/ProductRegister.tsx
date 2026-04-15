@@ -1,4 +1,4 @@
-import { Box, Center, Flex } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 import Header from '../../../components/ui/Header';
 import Register from './Register';
 import { useState } from 'react';
@@ -43,29 +43,24 @@ export default function ProductRegister() {
     }
   }
 
-
   return (
-    <Box>
+    <Box height="100vh" display="flex" flexDirection="column" overflow="hidden">
       <Header />
-      <Center height="100vh" bgColor="#f5f5f5f5">
-        <Flex
-          bgColor="#FFFFFF"
-          padding="24px"
-          borderRadius="16px"
-          alignItems="center"
-          gap="32px"
-        >
-          <Product
-            name={product.name||"Nome do produto"}
-            price={Number(product.price)||0}
-            img={product.image||"https://placehold.co/232x232/png"}
-          />
+      <Center flex="1" bgColor="#f5f5f5f5">
+        <Box display="flex" alignItems="stretch" width="800px">
+          <Box display="flex" flex="1" alignItems="center" justifyContent="center">
+            <Product
+              name={product.name||"Nome do produto"}
+              price={Number(product.price)||0}
+              img={product.image||"https://placehold.co/232x232/png"}
+            />
+          </Box>
           <Register 
             product={product}
             setProduct={setProduct}
             saveProduct={saveProduct}
           />
-        </Flex>
+        </Box>
       </Center>
     </Box>
   );

@@ -4,10 +4,10 @@ import { FaExplosion } from "react-icons/fa6";
 export default function Desc() {
   return (
     <Stack
-      display="flex"
+      flex="1"
+
       bgColor="#0060B1"
-      width="347.48px"
-      height="100%"
+
       borderTopLeftRadius="16px"
       borderBottomLeftRadius="16px"
 
@@ -43,6 +43,7 @@ export default function Desc() {
           fontSize="28px"
 
           textAlign="center"
+          color="#FFFFFF"
         >
           Explosion Store
         </Text>
@@ -53,6 +54,7 @@ export default function Desc() {
         fontSize="24px"
 
         textAlign="center"
+        color="#FFFFFF"
       >
         Sincronize sua experiência em todos os dispositivos
       </Text>
