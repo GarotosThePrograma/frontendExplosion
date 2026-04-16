@@ -3,11 +3,22 @@ import Login from '../pages/Login/Login';
 import Home from '../pages/Home/Home';
 import ProductRegister from '../pages/admin/ProductRegister/ProductRegister';
 import Register from '../pages/Register/Register';
+import Layout from '../pages/Layout';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: '/productregister',
+        element: <ProductRegister />,
+      },
+    ],
   },
   {
     path: '/login',
@@ -16,9 +27,5 @@ export const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />
-  },
-  {
-    path: '/productregister',
-    element: <ProductRegister />,
   },
 ]);

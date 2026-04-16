@@ -1,4 +1,4 @@
-import { Button, Fieldset, Stack, Box } from '@chakra-ui/react';
+import { Button, Fieldset, Stack, Box, Text } from '@chakra-ui/react';
 import TextField from '../../components/ui/fields/TextField';
 import type { formProps } from './form.interface.';
 import PasswordField from '../../components/ui/fields/PasswordField';
@@ -7,10 +7,12 @@ export default function Form({
   user,
   setUser,
   saveLogin,
+  navigate,
 }: {
   user: formProps;
   setUser: (user: formProps) => void;
   saveLogin: () => void;
+  navigate: (route: string) => void;
 }) {
   return (
     <Box
@@ -62,6 +64,20 @@ export default function Form({
         >
           Entrar na conta
         </Button>
+
+        <Text
+          width="100%"
+          fontWeight="medium"
+          fontSize="14px"
+          color="#000000"
+          lineClamp={1}
+          pointerEvents="auto"
+          cursor="pointer"
+          _hover={{ textDecoration: "underline", color: "#FF6500" }}
+          onClick={() => navigate('/register')}
+        >
+          Não possui uma conta? Criar conta.
+        </Text>
       </Fieldset.Root>
     </Box>
   );

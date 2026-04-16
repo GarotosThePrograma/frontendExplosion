@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Center, Box } from '@chakra-ui/react';
-import Header from '../../components/ui/Header';
+import { Stack } from '@chakra-ui/react';
 import Product from '../../components/ui/Product/Product';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import CarouselComponent from './Carousel';
 
 export default function Home() {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -23,22 +23,16 @@ export default function Home() {
   }, []);
 
   return (
-    <Box>
-      <Header />
-      <Center 
-        height="100vh" 
-        bgColor="#f5f5f5f5"
-        gap="24px"
-      >
-        {product.slice(0, 4).map((product, index) => (
-          <Product
-            key={index}
-            name={product.name}
-            price={product.price}
-            image={product.image}
-          />
-        ))}
-      </Center>
-    </Box>
+    <Stack>
+      <CarouselComponent />
+      {product.slice(0, 4).map((product, index) => (
+        <Product
+          key={index}
+          name={product.name || 'Nome do produto'}
+          price={product.price}
+          image={product.image}
+        />
+      ))}
+    </Stack>
   );
 }
