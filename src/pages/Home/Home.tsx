@@ -35,7 +35,7 @@ export default function Home() {
             key={index}
             name={product.name}
             price={product.price}
-            img={product.image}
+            image={product.image}
           />
         ))}
       </Center>

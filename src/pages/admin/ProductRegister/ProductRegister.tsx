@@ -57,7 +57,8 @@ export default function ProductRegister() {
             <Product
               name={product.name || 'Nome do produto'}
               price={Number(product.price) || 0}
-              img={product.image || 'https://placehold.co/232x232/png'}
+              image={product.image || 'https://placehold.co/232x232/png'}
+              isInteractive={false}
             />
           </Box>
           <Form
