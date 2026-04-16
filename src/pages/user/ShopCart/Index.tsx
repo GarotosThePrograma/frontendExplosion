@@ -1,6 +1,5 @@
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Resume from "./Resume";
 import ProductInLine from "../../../components/ui/products/ProductInLine";
@@ -15,17 +14,14 @@ interface CartItem {
 
 export default function ShopCart() {
   const baseUrl = import.meta.env.VITE_API_URL;
-  const navigate = useNavigate();
   const token = localStorage.getItem('token');
   
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  
-
   async function fetchCart() {
     if (!token) {
-      //return navigate("/login");
+      return
     }
     try {
       const response = await axios.get(`${baseUrl}/cart`, {
@@ -58,7 +54,10 @@ export default function ShopCart() {
     <Flex gap="24px" width="100%" maxW="1200px" margin="0 auto">
       <Stack gap="16px" flex="1">
         {cartItems.length === 0 ? (
-          <Text>Seu carrinho está vazio.</Text>
+          <Text
+            textAlign="center"
+            color="#000000"
+          >Seu carrinho está vazio.</Text>
         ) : (
           cartItems.map((item) => (
             <ProductInLine 
@@ -71,6 +70,14 @@ export default function ShopCart() {
             />
           ))
         )}
+        <ProductInLine 
+          key="total"
+          name="Total"
+          price={totalPrice}
+          image=""
+          quantity={0}
+          onQuantityChange={() => {}}
+        />
       </Stack>
       <Box width="350px">
         <Resume totalPrice={totalPrice} />
