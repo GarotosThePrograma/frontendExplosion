@@ -1,5 +1,5 @@
 import { Box, Button, IconButton, Stack, Text, Image } from "@chakra-ui/react";
-import { MdOutlineFavoriteBorder, MdOutlineShoppingCart } from "react-icons/md";
+import { FaHeart, FaCartShopping } from 'react-icons/fa6';
 import type { productProps } from "../../../types/product.interface.";
 
 export default function Product({name, price, image, isInteractive = true}: productProps) {
@@ -34,7 +34,7 @@ export default function Product({name, price, image, isInteractive = true}: prod
           _hover={{ color: "#FF6500", bgColor: "#FFFFFF" }}
           onClick={() => console.log("Clicou no coração!")}
         >
-          <MdOutlineFavoriteBorder />
+          <FaHeart />
         </IconButton>
         
         <Image 
@@ -93,7 +93,7 @@ export default function Product({name, price, image, isInteractive = true}: prod
         _hover={{ bgColor: "#003A70" }}
         onClick={() => console.log("Adicionado ao carrinho!")}
       >
-        <MdOutlineShoppingCart style={{ marginRight: '8px' }} />
+        <FaCartShopping style={{ marginRight: '8px' }} />
         Comprar
       </Button>
     </Stack>

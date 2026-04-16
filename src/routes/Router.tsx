@@ -4,6 +4,8 @@ import Home from '../pages/Home/Home';
 import ProductRegister from '../pages/admin/ProductRegister/Index';
 import Register from '../pages/Register/Index';
 import Layout from '../pages/Layout';
+import Favorits from '../pages/user/Favorits/Index';
+import ShopCart from '../pages/user/ShopCart/Index';
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +15,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/favorits',
+        element: <Favorits />,
+      },
+      {
+        path: '/shopcart',
+        element: <ShopCart />,
       },
       {
         path: '/productregister',
