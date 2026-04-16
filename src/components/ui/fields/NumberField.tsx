@@ -1,14 +1,11 @@
 import { Field, NumberInput } from '@chakra-ui/react';
+import type { fieldProps } from './field.interface.';
 
 export default function NumberField({
   name,
   value,
   onChange,
-}: {
-  name: string;
-  value: string;
-  onChange: (value: string) => void;
-}) {
+}: fieldProps) {
   return (
     <Field.Root required gap="1px">
       <Field.Label color="#000000">
@@ -20,7 +17,7 @@ export default function NumberField({
         onValueChange={(e) => onChange(e.value)}
       >
         <NumberInput.Input
-          placeholder={'Enter Product ' + name}
+          placeholder={'Digite ' + name}
           color="#000000"
         />
       </NumberInput.Root>

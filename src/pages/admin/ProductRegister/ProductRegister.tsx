@@ -1,6 +1,6 @@
 import { Box, Center } from '@chakra-ui/react';
 import Header from '../../../components/ui/Header';
-import Register from './Form';
+import Form from './Form';
 import { useState } from 'react';
 import axios from 'axios';
 import Product from '../../../components/ui/Product/Product';
@@ -35,7 +35,7 @@ export default function ProductRegister() {
         Stock: Number(product.stock),
         Image: product.image,
         Type: Number(product.type),
-        Description: product.description
+        Description: product.description,
       });
       console.log(response.data);
     } catch (erro) {
@@ -48,14 +48,19 @@ export default function ProductRegister() {
       <Header />
       <Center flex="1" bgColor="#f5f5f5f5">
         <Box display="flex" alignItems="stretch" width="800px">
-          <Box display="flex" flex="1" alignItems="center" justifyContent="center">
+          <Box
+            display="flex"
+            flex="1"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Product
-              name={product.name||"Nome do produto"}
-              price={Number(product.price)||0}
-              img={product.image||"https://placehold.co/232x232/png"}
+              name={product.name || 'Nome do produto'}
+              price={Number(product.price) || 0}
+              img={product.image || 'https://placehold.co/232x232/png'}
             />
           </Box>
-          <Register 
+          <Form
             product={product}
             setProduct={setProduct}
             saveProduct={saveProduct}

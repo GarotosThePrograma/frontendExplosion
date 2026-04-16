@@ -1,6 +1,7 @@
 import { Button, Fieldset, Stack, Box } from '@chakra-ui/react';
-import TextField from '../../components/ui/filds/TextField';
+import TextField from '../../components/ui/fields/TextField';
 import type { formProps } from './form.interface.';
+import PasswordField from '../../components/ui/fields/PasswordField';
 
 export default function Form({
   user,
@@ -44,9 +45,8 @@ export default function Form({
             onChange={(value) => setUser({ ...user, email: value })}
           />
 
-          <TextField
+          <PasswordField
             name="Senha"
-            type="password"
             value={user.password}
             onChange={(value) => setUser({ ...user, password: value })}
           />
