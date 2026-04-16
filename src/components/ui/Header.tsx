@@ -33,7 +33,7 @@ export default function Header({
         >
           <FaExplosion color="#FF6500" />
         </Flex>
-        <Text width="176px" fontWeight="bold" fontSize="24px" color="#FFFFFF">
+        <Text width="176px" fontWeight="bold" fontSize="24px" color="#FFFFFF" cursor="pointer" onClick={() => navigate('/')}>
           Explosion Store
         </Text>
       </Flex>

@@ -1,7 +1,7 @@
 import { Flex, Stack, Text } from "@chakra-ui/react";
 import { FaExplosion } from "react-icons/fa6";
 
-export default function Desc() {
+export default function Desc({navigate}: {navigate: (route: string) => void}) {
   return (
     <Stack
       flex="1"
@@ -44,6 +44,7 @@ export default function Desc() {
 
           textAlign="center"
           color="#FFFFFF"
+          cursor="pointer" onClick={() => navigate('/')}
         >
           Explosion Store
         </Text>

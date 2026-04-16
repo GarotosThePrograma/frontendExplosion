@@ -25,7 +25,7 @@ export default function Login() {
         Password: user.password,
       });
 
-      localStorage.setItem('token', response.data.access_token);
+      localStorage.setItem('token', response.data.token);
       console.log('Sucesso ao Logar');
       navigate('/');
     } catch (erro) {
@@ -36,7 +36,7 @@ export default function Login() {
   return (
     <Center h="100vh" bgColor="#f5f5f5">
       <Box display="flex" alignItems="stretch" width="800px">
-        <Desc />
+        <Desc navigate={navigate}/>
         <Form user={user} setUser={setUser} saveLogin={saveLogin} navigate={navigate}/>
       </Box>
     </Center>

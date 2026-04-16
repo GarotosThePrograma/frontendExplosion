@@ -3,7 +3,6 @@ import { Stack } from '@chakra-ui/react';
 import ProductInColumn from '../../components/ui/products/ProductInColumn';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import CarouselComponent from './Carousel';
 
 export default function Home() {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -20,7 +19,6 @@ export default function Home() {
 
   return (
     <Stack>
-      <CarouselComponent />
       {product.slice(0, 4).map((product, index) => (
         <ProductInColumn
           key={index}

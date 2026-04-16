@@ -50,7 +50,7 @@ export default function Register() {
   return (
     <Center h="100vh" bgColor="#f5f5f5">
       <Box display="flex" alignItems="stretch" width="800px">
-        <Desc />
+        <Desc navigate={navigate}/>
         <Form user={user} setUser={setUser} saveRegister={saveRegister} navigate={navigate}/>
       </Box>
     </Center>
