@@ -53,6 +53,7 @@ export default function Header({
           bgColor="transparent"
           color="#FFFFFF"
           onClick={() => navigate('/favorits')}
+          _hover={{color: "#FF6500"}}
         >
           <FaHeart />
         </IconButton>
@@ -61,6 +62,7 @@ export default function Header({
           bgColor="transparent"
           color="#FFFFFF"
           onClick={() => navigate('/shopcart')}
+          _hover={{color: "#FF6500"}}
         >
           <FaCartShopping />
         </IconButton>
@@ -68,8 +70,8 @@ export default function Header({
         <IconButton
           bgColor="transparent"
           color="#FFFFFF"
-          onClick={() => navigate('/shopcart')}
-          
+          onClick={() => navigate('/login')}
+          _hover={{color: "#FF6500"}}
         >
           <FaCircleUser />
         </IconButton>

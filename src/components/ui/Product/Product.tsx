@@ -31,7 +31,7 @@ export default function Product({name, price, image, isInteractive = true}: prod
           color="#6B7280"
           zIndex="1"
           pointerEvents={isInteractive ? "auto" : "none"}
-          _hover={{ color: "#FF6500", bgColor: "#FFFFFF" }}
+          _hover={{ color: "#FF6500"}}
           onClick={() => console.log("Clicou no coração!")}
         >
           <FaHeart />
@@ -85,12 +85,12 @@ export default function Product({name, price, image, isInteractive = true}: prod
         width="100%"
         fontWeight="semibold"
         fontSize="14px"
-        bgColor="#004A8C"
+        bgColor="#0060B1"
         color="#FFFFFF"
         borderRadius="8px"
         mt="8px"
         pointerEvents={isInteractive ? "auto" : "none"}
-        _hover={{ bgColor: "#003A70" }}
+        _hover={{ bgColor: "#004A8C" }}
         onClick={() => console.log("Adicionado ao carrinho!")}
       >
         <FaCartShopping style={{ marginRight: '8px' }} />

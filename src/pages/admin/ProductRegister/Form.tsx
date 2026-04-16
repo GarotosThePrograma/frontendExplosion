@@ -75,6 +75,7 @@ export default function Form({
           bgColor="#FF6500"
           color="#FFFFFF"
           onClick={saveProduct}
+          _hover={{bgColor: "#FF4500"}}
         >
           Salvar Produto
         </Button>

@@ -74,6 +74,7 @@ export default function Form({
           color="#FFFFFF"
           onClick={saveRegister}
           type="submit"
+          _hover={{bgColor: "#FF4500"}}
         >
           Crie sua conta
         </Button>

@@ -61,6 +61,7 @@ export default function Form({
           color="#FFFFFF"
           onClick={saveLogin}
           type="submit"
+          _hover={{bgColor: "#FF4500"}}
         >
           Entrar na conta
         </Button>
