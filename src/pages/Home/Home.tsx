@@ -1,20 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Stack } from '@chakra-ui/react';
-import Product from '../../components/ui/Product/Product';
+import ProductInColumn from '../../components/ui/products/ProductInColumn';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import CarouselComponent from './Carousel';
 
 export default function Home() {
   const baseUrl = import.meta.env.VITE_API_URL;
-  const [product, setProduct] = useState([
-    { name: '', price: 0, image: '' },
-  ]);
+  const [product, setProduct] = useState([{ name: '', price: 0, image: '' }]);
 
   async function fetchData() {
-    const response = await axios.get(
-      `${baseUrl}/Products/productslist`,
-    );
+    const response = await axios.get(`${baseUrl}/Products/productslist`);
     setProduct(response.data);
   }
 
@@ -26,7 +22,7 @@ export default function Home() {
     <Stack>
       <CarouselComponent />
       {product.slice(0, 4).map((product, index) => (
-        <Product
+        <ProductInColumn
           key={index}
           name={product.name || 'Nome do produto'}
           price={product.price}

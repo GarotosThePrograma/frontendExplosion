@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import Form from './Form';
 import { useState } from 'react';
 import axios from 'axios';
-import Product from '../../../components/ui/Product/Product';
+import ProductInColumn from '../../../components/ui/products/ProductInColumn';
 
 export default function ProductRegister() {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -44,13 +44,8 @@ export default function ProductRegister() {
 
   return (
     <Box display="flex" alignItems="stretch" width="800px">
-      <Box
-        display="flex"
-        flex="1"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Product
+      <Box display="flex" flex="1" alignItems="center" justifyContent="center">
+        <ProductInColumn
           name={product.name || 'Nome do produto'}
           price={Number(product.price) || 0}
           image={product.image || 'https://placehold.co/232x232/png'}

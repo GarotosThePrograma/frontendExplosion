@@ -3,4 +3,6 @@ export type productProps = {
   price: number
   image: string
   isInteractive?: boolean
+  quantity?: number;
+  onQuantityChange?: (newQuantity: number) => void;
 }
