@@ -1,4 +1,4 @@
-export type formProps = {
+export type productRegisterFormProps = {
   name: string;
   price: string;
   stock: string;

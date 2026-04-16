@@ -1,6 +1,6 @@
 import { Button, Fieldset, Stack, Box, Text } from '@chakra-ui/react';
 import TextField from '../../components/ui/fields/TextField';
-import type { formProps } from './form.interface.';
+import type { loginFormProps } from '../../types/loginForm.interface.';
 import PasswordField from '../../components/ui/fields/PasswordField';
 
 export default function Form({
@@ -9,8 +9,8 @@ export default function Form({
   saveLogin,
   navigate,
 }: {
-  user: formProps;
-  setUser: (user: formProps) => void;
+  user: loginFormProps;
+  setUser: (user: loginFormProps) => void;
   saveLogin: () => void;
   navigate: (route: string) => void;
 }) {
@@ -73,7 +73,7 @@ export default function Form({
           lineClamp={1}
           pointerEvents="auto"
           cursor="pointer"
-          _hover={{ textDecoration: "underline", color: "#FF6500" }}
+          _hover={{ textDecoration: 'underline', color: '#FF6500' }}
           onClick={() => navigate('/register')}
         >
           Não possui uma conta? Criar conta.

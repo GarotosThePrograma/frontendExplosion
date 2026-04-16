@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Stack, Text, Image } from "@chakra-ui/react";
 import { MdOutlineFavoriteBorder, MdOutlineShoppingCart } from "react-icons/md";
-import type { productProps } from "./product.interface.";
+import type { productProps } from "../../../types/product.interface.";
 
 export default function Product({name, price, image, isInteractive = true}: productProps) {
 

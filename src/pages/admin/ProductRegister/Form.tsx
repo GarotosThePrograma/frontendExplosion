@@ -1,15 +1,15 @@
 import { Button, Fieldset, Box, Stack } from '@chakra-ui/react';
 import TextField from '../../../components/ui/fields/TextField';
 import NumberField from '../../../components/ui/fields/NumberField';
-import type { formProps } from './form.interface.';
+import type { productRegisterFormProps } from '../../../types/productRegisterForm.interface.';
 
 export default function Form({
   product,
   setProduct,
   saveProduct,
 }: {
-  product: formProps;
-  setProduct: (product: formProps) => void;
+  product: productRegisterFormProps;
+  setProduct: (product: productRegisterFormProps) => void;
   saveProduct: () => void;
 }) {
   return (

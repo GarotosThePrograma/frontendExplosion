@@ -1,5 +1,5 @@
 import { Field, Input } from '@chakra-ui/react';
-import type { fieldProps } from './field.interface.';
+import type { fieldProps } from '../../../types/field.interface.';
 
 export default function TextField({
   name,

@@ -1,13 +1,9 @@
 import { Field, Input, IconButton, Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import type { fieldProps } from './field.interface.';
+import type { fieldProps } from '../../../types/field.interface.';
 
-export default function PasswordField({
-  name,
-  value,
-  onChange,
-}: fieldProps) {
+export default function PasswordField({ name, value, onChange }: fieldProps) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 

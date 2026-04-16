@@ -1,4 +1,4 @@
-export type formProps = {
+export type registerFormProps = {
   name: string;
   email: string;
   password: string;
