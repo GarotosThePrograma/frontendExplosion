@@ -79,7 +79,7 @@ export default function ShopCart() {
           onQuantityChange={() => {}}
         />
       </Stack>
-      <Box width="350px">
+      <Box>
         <Resume totalPrice={totalPrice} />
       </Box>
     </Flex>
