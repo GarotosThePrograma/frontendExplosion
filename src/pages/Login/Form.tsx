@@ -1,35 +1,16 @@
 import { Button, Fieldset, Stack, Box } from '@chakra-ui/react';
-import axios from 'axios';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import TextField from '../../components/ui/filds/TextField';
+import type { formProps } from './form.interface.';
 
-export default function Form() {
-  const baseUrl = import.meta.env.VITE_API_URL;
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  async function SaveLogin() {
-    try {
-      if (!email || !password) {
-        alert('Por favor, preencha os campos obrigatórios corretamente!');
-        return;
-      }
-      const response = await axios.post(`${baseUrl}/auth/login`, {
-        Email: email,
-        Password: password,
-      });
-
-      localStorage.setItem('token', response.data.access_token);
-      console.log('Sucesso ao Logar');
-      navigate('/');
-    } catch (erro) {
-      console.error('Erro ao Logar', erro);
-    }
-  }
-
+export default function Form({
+  user,
+  setUser,
+  saveLogin,
+}: {
+  user: formProps;
+  setUser: (user: formProps) => void;
+  saveLogin: () => void;
+}) {
   return (
     <Box
       display="flex"
@@ -59,15 +40,15 @@ export default function Form() {
           <TextField
             name="E-mail"
             type="email"
-            value={email}
-            onChange={(value) => setEmail(value)}
+            value={user.email}
+            onChange={(value) => setUser({ ...user, email: value })}
           />
 
           <TextField
             name="Senha"
             type="password"
-            value={password}
-            onChange={(value) => setPassword(value)}
+            value={user.password}
+            onChange={(value) => setUser({ ...user, password: value })}
           />
         </Fieldset.Content>
 
@@ -76,7 +57,8 @@ export default function Form() {
           variant="solid"
           bgColor="#FF6500"
           color="#FFFFFF"
-          onClick={SaveLogin}
+          onClick={saveLogin}
+          type="submit"
         >
           Entrar na conta
         </Button>

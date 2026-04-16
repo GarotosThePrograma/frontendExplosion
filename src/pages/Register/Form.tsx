@@ -1,44 +1,16 @@
 import { Button, Fieldset, Stack, Box } from '@chakra-ui/react';
-import axios from 'axios';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import TextField from '../../components/ui/filds/TextField';
+import type { formProps } from './form.interface.';
 
-export default function RegisterForm() {
-  const baseUrl = import.meta.env.VITE_API_URL;
-  const navigate = useNavigate();
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  async function SaveRegister() {
-    try {
-      if (!name || !email || !password || !confirmPassword) {
-        alert('Por favor, preencha todos os campos obrigatórios!');
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        alert('As senhas digitadas não coincidem. Tente novamente.');
-        return;
-      }
-
-      const response = await axios.post(`${baseUrl}/auth/register`, {
-        Name: name,
-        Email: email,
-        Password: password,
-      });
-
-      localStorage.setItem('token', response.data.access_token);
-      console.log('Sucesso ao Cadastrar');
-      navigate('/');
-    } catch (erro) {
-      console.error('Erro ao Cadastrar', erro);
-    }
-  }
-
+export default function Form({
+  user,
+  setUser,
+  saveRegister,
+}: {
+  user: formProps;
+  setUser: (user: formProps) => void;
+  saveRegister: () => void;
+}) {
   return (
     <Box
       display="flex"
@@ -68,29 +40,29 @@ export default function RegisterForm() {
           <TextField
             name="Nome"
             type="text"
-            value={name}
-            onChange={(value) => setName(value)}
+            value={user.name}
+            onChange={(value) => setUser({ ...user, name: value })}
           />
 
           <TextField
             name="E-mail"
             type="email"
-            value={email}
-            onChange={(value) => setEmail(value)}
+            value={user.email}
+            onChange={(value) => setUser({ ...user, email: value })}
           />
 
           <TextField
             name="Senha"
             type="password"
-            value={password}
-            onChange={(value) => setPassword(value)}
+            value={user.password}
+            onChange={(value) => setUser({ ...user, password: value })}
           />
 
           <TextField
             name="Confirmar Senha"
             type="password"
-            value={confirmPassword}
-            onChange={(value) => setConfirmPassword(value)}
+            value={user.confirmPassword}
+            onChange={(value) => setUser({ ...user, confirmPassword: value })}
           />
         </Fieldset.Content>
 
@@ -99,7 +71,8 @@ export default function RegisterForm() {
           variant="solid"
           bgColor="#FF6500"
           color="#FFFFFF"
-          onClick={SaveRegister}
+          onClick={saveRegister}
+          type="submit"
         >
           Crie sua conta
         </Button>

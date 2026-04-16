@@ -1,6 +1,6 @@
 import { Box, Center } from '@chakra-ui/react';
 import Header from '../../../components/ui/Header';
-import Register from './Register';
+import Register from './Form';
 import { useState } from 'react';
 import axios from 'axios';
 import Product from '../../../components/ui/Product/Product';
