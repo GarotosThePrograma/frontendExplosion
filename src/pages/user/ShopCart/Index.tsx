@@ -91,7 +91,7 @@ export default function ShopCart() {
     .reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0); 
 
   return (
-    <Flex gap="24px" width="100%" maxW="1200px" margin="0 auto">
+    <Flex gap="24px" width="100%" maxW="1200px" margin="0 auto" alignItems="flex-start" padding={50}>
       <Stack gap="16px" flex="1">
         {cartItems.length === 0 ? (
           <Text textAlign="center" color="#000000">
@@ -117,7 +117,7 @@ export default function ShopCart() {
           })
         )}
       </Stack>
-      <Box>
+      <Box position="sticky" top="150px">
         <Resume totalPrice={calculatedTotal} />
       </Box>
     </Flex>

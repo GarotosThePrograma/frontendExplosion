@@ -75,7 +75,7 @@ export default function Favorits() {
 
   return (
     // Tiramos o gap e centralizamos o conteúdo do Flex
-    <Flex width="100%" maxW="1200px" justifyContent="center" margin="0 auto" padding="24px 16px">
+    <Flex width="100%" maxW="1200px" justifyContent="center" margin="0 auto" padding={50}>
       
       {/* Removemos o flex="1" e travamos a largura máxima do Stack em 800px */}
       <Stack gap="16px" width="100%" maxW="800px"> 
