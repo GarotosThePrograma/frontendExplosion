@@ -7,7 +7,7 @@ import ProductInLine from "../../../components/ui/products/ProductInLine";
 interface CartItem {
   id?: string; 
   productId?: string; 
-  name: string;
+  productName: string;
   unitPrice: number;
   image: string;
   quantity: number;
@@ -104,7 +104,7 @@ export default function ShopCart() {
             return (
               <ProductInLine 
                 key={uniqueId}
-                name={item.name} 
+                name={item.productName} 
                 price={item.unitPrice} 
                 image={item.image} 
                 quantity={item.quantity}

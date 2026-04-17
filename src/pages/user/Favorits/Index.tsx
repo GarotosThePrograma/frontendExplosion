@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductInLine from "../../../components/ui/products/ProductInLine";
 
+// Atualizado para prever como o backend costuma devolver essas chaves
 interface FavoriteItem {
-  id: string; 
-  name: string;
+  id?: string; 
+  productId?: string;
+  productName: string;
   price: number;
   image: string;
-  quantity: number;
 }
 
 export default function Favorits() {
@@ -17,68 +18,77 @@ export default function Favorits() {
   
   const [favoritItems, setFavoritsItems] = useState<FavoriteItem[]>([]);
 
-  async function fetchCart() {
-    if (!token) {
-      return
-    }
+  async function fetchFavorites() {
+    if (!token) return;
+    
     try {
       const response = await axios.get(`${baseUrl}/favorites`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setFavoritsItems(response.data.items); 
+      // A correção principal: pegamos direto o data, com um fallback de segurança
+      setFavoritsItems(response.data || []); 
     } catch (error) {
-      console.error('Erro ao buscar o favoritos:', error);
-    }
-  }
-
-  async function updateCart() {
-    try {
-      const response = await axios.post(`${baseUrl}/favorites/items`, {
-        Items: favoritItems
-      })
-      console.log('Sucesso ao atualizar o favoritos:', response.data)
-    }
-    catch (error) {
-      console.error('Erro ao atualizar o favoritos:', error);
+      console.error('Erro ao buscar os favoritos:', error);
     }
   }
 
   useEffect(() => {
-    fetchCart();
+    fetchFavorites();
   }, []);
 
-  const handleQuantityChange = (id: string, newQuantity: number) => {
-    if (newQuantity >= 1) {
-      setFavoritsItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        )
-      );
+  // Lógica para remover dos favoritos (Deletar)
+  const handleRemoveFavorite = async (identifier: string) => {
+    // 1. Optimistic Update: tira o item da tela na mesma hora
+    setFavoritsItems((prevItems) => 
+      prevItems.filter(item => (item.id || item.productId) !== identifier)
+    );
+
+    // 2. Manda a exclusão para o banco
+    try {
+      await axios.delete(`${baseUrl}/favorites/${identifier}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    } catch (error) {
+      console.error('Erro ao remover o favorito:', error);
+      // Se der erro na API, avisamos o usuário com alert simples
+      alert("Erro ao remover o favorito. Tente novamente.");
+      // E buscamos a lista de novo para garantir que a tela mostre a verdade do banco
+      fetchFavorites(); 
     }
-    updateCart();
   };
 
   return (
-    <Flex gap="24px" width="100%" maxW="1200px" justifyContent="center" margin="0 auto">
-      <Stack gap="16px">
-        {favoritItems.length === 0 ? (
-          <Text
-            textAlign="center"
-            color="#000000"
-          >Seu favoritos está vazio.</Text>
+    // Tiramos o gap e centralizamos o conteúdo do Flex
+    <Flex width="100%" maxW="1200px" justifyContent="center" margin="0 auto" padding="24px 16px">
+      
+      {/* Removemos o flex="1" e travamos a largura máxima do Stack em 800px */}
+      <Stack gap="16px" width="100%" maxW="800px"> 
+        
+        {!favoritItems || favoritItems.length === 0 ? (
+          <Text textAlign="center" color="#000000">
+            Sua lista de favoritos está vazia.
+          </Text>
         ) : (
-          favoritItems.map((item) => (
-            <ProductInLine 
-              key={item.id}
-              name={item.name} 
-              price={item.price} 
-              image={item.image} 
-              quantity={item.quantity}
-              onQuantityChange={(newQuantity) => handleQuantityChange(item.id, newQuantity)}
-            />
-          ))
+          favoritItems.map((item) => {
+            const uniqueId = item.id || item.productId || "";
+
+            return (
+              <ProductInLine 
+                key={uniqueId}
+                name={item.productName}
+                price={item.price} 
+                image={item.image} 
+                // Passamos quantidade 1 por padrão para o componente filho não bugar
+                quantity={1} 
+                // Função vazia pois favoritos não mexem em quantidade
+                onQuantityChange={() => {}} 
+                // Conectando a lixeira
+                onRemove={() => handleRemoveFavorite(uniqueId)}
+              />
+            );
+          })
         )}
       </Stack>
     </Flex>
