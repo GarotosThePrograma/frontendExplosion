@@ -5,11 +5,13 @@ import Resume from "./Resume";
 import ProductInLine from "../../../components/ui/products/ProductInLine";
 
 interface CartItem {
-  id: string; 
+  id?: string; 
+  productId?: string; 
   name: string;
-  price: number;
+  unitPrice: number;
   image: string;
   quantity: number;
+  isSelected?: boolean; 
 }
 
 export default function ShopCart() {
@@ -17,20 +19,19 @@ export default function ShopCart() {
   const token = localStorage.getItem('token');
   
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [totalPrice, setTotalPrice] = useState(0);
 
   async function fetchCart() {
-    if (!token) {
-      return
-    }
+    if (!token) return;
     try {
       const response = await axios.get(`${baseUrl}/cart`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setCartItems(response.data.items); 
-      setTotalPrice(response.data.total);
+      
+      const itemsWithSelection = response.data.items.map((item: any) => ({
+        ...item,
+        isSelected: true 
+      }));
+      setCartItems(itemsWithSelection);
     } catch (error) {
       console.error('Erro ao buscar o carrinho:', error);
     }
@@ -40,47 +41,84 @@ export default function ShopCart() {
     fetchCart();
   }, []);
 
-  const handleQuantityChange = (id: string, newQuantity: number) => {
-    if (newQuantity >= 1) {
-      setCartItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        )
+  const handleToggleSelect = (identifier: string) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        (item.id || item.productId) === identifier 
+          ? { ...item, isSelected: !item.isSelected } 
+          : item
+      )
+    );
+  };
+
+  const handleQuantityChange = async (identifier: string, newQuantity: number) => {
+    if (newQuantity < 1) return;
+
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        (item.id || item.productId) === identifier 
+          ? { ...item, quantity: newQuantity } 
+          : item
+      )
+    );
+
+    try {
+      
+      await axios.put(`${baseUrl}/cart/items/${identifier}`, 
+        { quantity: newQuantity }, 
+        { headers: { Authorization: `Bearer ${token}` } }
       );
+    } catch (error) {
+      console.error("Erro ao atualizar quantidade no banco", error);
     }
   };
+
+  const handleRemoveItem = async (identifier: string) => {
+
+    setCartItems((prevItems) => prevItems.filter(item => (item.id || item.productId) !== identifier));
+
+    try {
+      await axios.delete(`${baseUrl}/cart/items/${identifier}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    } catch (error) {
+      console.error("Erro ao remover item do banco", error);
+    }
+  };
+
+  const calculatedTotal = cartItems
+    .filter(item => item.isSelected) 
+    .reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0); 
 
   return (
     <Flex gap="24px" width="100%" maxW="1200px" margin="0 auto">
       <Stack gap="16px" flex="1">
         {cartItems.length === 0 ? (
-          <Text
-            textAlign="center"
-            color="#000000"
-          >Seu carrinho está vazio.</Text>
+          <Text textAlign="center" color="#000000">
+            Seu carrinho está vazio.
+          </Text>
         ) : (
-          cartItems.map((item) => (
-            <ProductInLine 
-              key={item.id}
-              name={item.name} 
-              price={item.price} 
-              image={item.image} 
-              quantity={item.quantity}
-              onQuantityChange={(newQuantity) => handleQuantityChange(item.id, newQuantity)}
-            />
-          ))
+          cartItems.map((item) => {
+            const uniqueId = item.id || item.productId || ""; 
+            
+            return (
+              <ProductInLine 
+                key={uniqueId}
+                name={item.name} 
+                price={item.unitPrice} 
+                image={item.image} 
+                quantity={item.quantity}
+                isSelected={item.isSelected}
+                onToggleSelect={() => handleToggleSelect(uniqueId)}
+                onQuantityChange={(newQuantity) => handleQuantityChange(uniqueId, newQuantity)}
+                onRemove={() => handleRemoveItem(uniqueId)}
+              />
+            )
+          })
         )}
-        <ProductInLine 
-          key="total"
-          name="Total"
-          price={totalPrice}
-          image=""
-          quantity={0}
-          onQuantityChange={() => {}}
-        />
       </Stack>
       <Box>
-        <Resume totalPrice={totalPrice} />
+        <Resume totalPrice={calculatedTotal} />
       </Box>
     </Flex>
   );

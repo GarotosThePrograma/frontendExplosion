@@ -10,6 +10,9 @@ export default function ProductInLine({
   isInteractive = true,
   quantity = 1,
   onQuantityChange,
+  isSelected = false,
+  onToggleSelect,
+  onRemove,
 }: productProps) {
   
   const formatPrice = (value: number) => {
@@ -33,7 +36,10 @@ export default function ProductInLine({
       borderRadius="16px"
     >
       <Flex gap="16px" alignItems="center">
-        <CheckboxComponent />
+        <CheckboxComponent 
+          isChecked={isSelected}
+          onChange={onToggleSelect} 
+        />
         <Box
           width="100px"
           height="100px"
@@ -134,6 +140,7 @@ export default function ProductInLine({
             _hover={{ color: "#FF6500", bgColor: "transparent" }}
             size="sm"
             gap="4px"
+            onClick={onRemove}
           >
             <FaTrash />
             <Text>Remover</Text>
