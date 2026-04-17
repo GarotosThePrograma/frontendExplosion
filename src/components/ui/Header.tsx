@@ -1,19 +1,44 @@
 import { Flex, IconButton, Input, InputGroup, Text } from '@chakra-ui/react';
-import { FaHeart, FaCartShopping, FaCircleUser, FaExplosion } from 'react-icons/fa6';
+import { FaBox } from "react-icons/fa6";
+import { FaHeart, FaCartShopping, FaCircleUser, FaExplosion } from 'react-icons/fa6'; 
 import { FaSearch } from "react-icons/fa";
+import { useEffect, useState } from 'react';
 
 export default function Header({
   navigate,
 }: {
   navigate: (route: string) => void;
 }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const payloadBase64 = token.split('.')[1];
+        const decodedPayload = JSON.parse(atob(payloadBase64));
+        
+        const userRole = 
+          decodedPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || 
+          decodedPayload.role || 
+          decodedPayload.Role;
+
+        if (userRole === 'Admin') {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error("Erro ao ler o token do usuário:", error);
+      }
+    }
+  }, []);
+
   return (
     <Flex
       position="sticky"
       top="0"
       zIndex="999"
       width="100%"
-      gap="128px"
+      gap="32px" 
       paddingY="18px"
       paddingX="32px"
       bgColor="#0060B1"
@@ -38,7 +63,7 @@ export default function Header({
         </Text>
       </Flex>
 
-      <InputGroup endElement={<FaSearch color="#0060B1" />}>
+      <InputGroup flex="1" maxW="650px" endElement={<FaSearch color="#0060B1" />}>
         <Input
           bgColor="#FFFFFF"
           placeholder="Busque por produtos, marcas..."
@@ -48,12 +73,26 @@ export default function Header({
         ></Input>
       </InputGroup>
 
-      <Flex height="40px">
+      <Flex height="40px" gap="8px" alignItems="center">
+        
+        {isAdmin && (
+          <IconButton
+            bgColor="transparent"
+            color="#FFFFFF"
+            onClick={() => navigate('/productregister')}
+            _hover={{color: "#FF6500"}}
+            title="Cadastrar Produto"
+          >
+            <FaBox />
+          </IconButton>
+        )}
+
         <IconButton
           bgColor="transparent"
           color="#FFFFFF"
           onClick={() => navigate('/favorits')}
           _hover={{color: "#FF6500"}}
+          title="Favoritos"
         >
           <FaHeart />
         </IconButton>
@@ -63,6 +102,7 @@ export default function Header({
           color="#FFFFFF"
           onClick={() => navigate('/shopcart')}
           _hover={{color: "#FF6500"}}
+          title="Carrinho"
         >
           <FaCartShopping />
         </IconButton>
@@ -72,6 +112,7 @@ export default function Header({
           color="#FFFFFF"
           onClick={() => navigate('/login')}
           _hover={{color: "#FF6500"}}
+          title="Login / Perfil"
         >
           <FaCircleUser />
         </IconButton>

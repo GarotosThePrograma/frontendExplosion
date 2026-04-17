@@ -3,22 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Resume from "./Resume";
 import ProductInLine from "../../../components/ui/products/ProductInLine";
-
-interface CartItem {
-  id?: string; 
-  productId?: string; 
-  productName: string;
-  unitPrice: number;
-  image: string;
-  quantity: number;
-  isSelected?: boolean; 
-}
+import type { cartItemProps } from "../../../types/cartItem.interface.";
 
 export default function ShopCart() {
   const baseUrl = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem('token');
   
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<cartItemProps[]>([]);
 
   async function fetchCart() {
     if (!token) return;
@@ -27,7 +18,7 @@ export default function ShopCart() {
         headers: { Authorization: `Bearer ${token}` },
       });
       
-      const itemsWithSelection = response.data.items.map((item: any) => ({
+      const itemsWithSelection = response.data.items.map((item: cartItemProps) => ({
         ...item,
         isSelected: true 
       }));
@@ -36,20 +27,6 @@ export default function ShopCart() {
       console.error('Erro ao buscar o carrinho:', error);
     }
   }
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  const handleToggleSelect = (identifier: string) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        (item.id || item.productId) === identifier 
-          ? { ...item, isSelected: !item.isSelected } 
-          : item
-      )
-    );
-  };
 
   const handleQuantityChange = async (identifier: string, newQuantity: number) => {
     if (newQuantity < 1) return;
@@ -86,6 +63,20 @@ export default function ShopCart() {
     }
   };
 
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const handleToggleSelect = (identifier: string) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        (item.id || item.productId) === identifier 
+          ? { ...item, isSelected: !item.isSelected } 
+          : item
+      )
+    );
+  };
+
   const calculatedTotal = cartItems
     .filter(item => item.isSelected) 
     .reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0); 
@@ -99,11 +90,11 @@ export default function ShopCart() {
           </Text>
         ) : (
           cartItems.map((item) => {
-            const uniqueId = item.id || item.productId || ""; 
+            const uniqueId = item.productId || ""; 
             
             return (
               <ProductInLine 
-                key={uniqueId}
+                key={item.id}
                 name={item.productName} 
                 price={item.unitPrice} 
                 image={item.image} 
