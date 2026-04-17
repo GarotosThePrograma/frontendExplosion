@@ -1,4 +1,4 @@
-export type productRegisterFormProps = {
+export type productDTOProps = {
   name: string;
   price: string;
   stock: string;

@@ -1,15 +1,15 @@
 import { Button, Fieldset, Box, Stack } from '@chakra-ui/react';
 import TextField from '../../../components/ui/fields/TextField';
 import NumberField from '../../../components/ui/fields/NumberField';
-import type { productRegisterFormProps } from '../../../types/productRegisterForm.interface.';
+import type { productDTOProps } from '../../../types/productDTO.interface.';
 
 export default function Form({
   product,
   setProduct,
   saveProduct,
 }: {
-  product: productRegisterFormProps;
-  setProduct: (product: productRegisterFormProps) => void;
+  product: productDTOProps;
+  setProduct: (product: productDTOProps) => void;
   saveProduct: () => void;
 }) {
   return (
@@ -75,7 +75,7 @@ export default function Form({
           bgColor="#FF6500"
           color="#FFFFFF"
           onClick={saveProduct}
-          _hover={{bgColor: "#FF4500"}}
+          _hover={{ bgColor: '#FF4500' }}
         >
           Salvar Produto
         </Button>

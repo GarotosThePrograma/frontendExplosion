@@ -12,7 +12,7 @@ export default function Favorits() {
 
   async function fetchFavorites() {
     if (!token) return;
-    
+
     try {
       const response = await axios.get(`${baseUrl}/favorites`, {
         headers: {
@@ -25,13 +25,9 @@ export default function Favorits() {
     }
   }
 
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
-
-  const handleRemoveFavorite = async (identifier: string) => {
+  async function handleRemoveFavorite(identifier: string) {
     setFavoritsItems((prevItems) => 
-      prevItems.filter(item => (item.id || item.productId) !== identifier)
+      prevItems.filter(item => (item.productId) !== identifier)
     );
 
     try {
@@ -41,12 +37,12 @@ export default function Favorits() {
     } catch (error) {
       console.error('Erro ao remover o favorito:', error);
       alert("Erro ao remover o favorito. Tente novamente.");
-      fetchFavorites(); 
     }
   };
 
-  const handleAddToCart = async (productId: string) => {
+  async function handleAddToCart(productId: string) {
     if (!token) return;
+    
     try {
       await axios.post(`${baseUrl}/cart/items`, 
         { productId: productId, quantity: 1 },
@@ -59,6 +55,10 @@ export default function Favorits() {
     }
   };
 
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
+
   return (
     <Flex width="100%" maxW="1200px" justifyContent="center" margin="0 auto" padding={50}>
       
@@ -70,7 +70,7 @@ export default function Favorits() {
           </Text>
         ) : (
           favoritItems.map((item) => {
-            const uniqueId = item.id || item.productId || "";
+            const uniqueId = item.productId || "";
 
             return (
               <ProductInLine 
