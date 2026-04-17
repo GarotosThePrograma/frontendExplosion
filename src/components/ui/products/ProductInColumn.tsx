@@ -1,13 +1,16 @@
 import { Box, Button, IconButton, Stack, Text, Image } from '@chakra-ui/react';
 import { FaHeart, FaCartShopping } from 'react-icons/fa6';
-import type { productProps } from '../../../types/product.interface.';
+import type { productInColumnProps } from '../../../types/productInColumn.interface.';
 
 export default function ProductInColumn({
   name,
   price,
   image,
   isInteractive = true,
-}: productProps) {
+  isFavorite = false,
+  onAddFavorite,
+  onAddToCart,
+}: productInColumnProps) {
   const formatPrice = (value: number) => {
     return value.toLocaleString('pt-BR', {
       minimumFractionDigits: 2,
@@ -30,11 +33,11 @@ export default function ProductInColumn({
           top="4px"
           right="4px"
           bgColor="transparent"
-          color="#6B7280"
+          color={isFavorite ? '#FF6500' : '#6B7280'} 
           zIndex="1"
           pointerEvents={isInteractive ? 'auto' : 'none'}
           _hover={{ color: '#FF6500' }}
-          onClick={() => console.log('Clicou no coração!')}
+          onClick={onAddFavorite}
         >
           <FaHeart />
         </IconButton>
@@ -52,7 +55,6 @@ export default function ProductInColumn({
           pointerEvents={isInteractive ? 'auto' : 'none'}
           cursor={isInteractive ? 'pointer' : 'default'}
           _hover={{ textDecoration: 'underline', color: '#FF6500' }}
-          onClick={() => console.log('Redirecionar para a página do produto')}
         >
           {name}
         </Text>
@@ -83,7 +85,7 @@ export default function ProductInColumn({
         mt="8px"
         pointerEvents={isInteractive ? 'auto' : 'none'}
         _hover={{ bgColor: '#004A8C' }}
-        onClick={() => console.log('Adicionado ao carrinho!')}
+        onClick={onAddToCart}
       >
         <FaCartShopping style={{ marginRight: '8px' }} />
         Comprar

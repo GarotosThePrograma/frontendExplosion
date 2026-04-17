@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Image, Input, Stack, Text } from "@chakra-ui/react";
-import CheckboxComponent from "../Checkbox";
-import { FaTrash } from "react-icons/fa";
-import type { productProps } from "../../../types/product.interface.";
+import { Box, Button, Flex, Image, Input, Stack, Text } from '@chakra-ui/react';
+import CheckboxComponent from '../Checkbox';
+import { FaTrash } from 'react-icons/fa';
+import type { productInLineProps } from '../../../types/productInLine.interface.';
 
 export default function ProductInLine({
   name,
@@ -13,8 +13,7 @@ export default function ProductInLine({
   isSelected = false,
   onToggleSelect,
   onRemove,
-}: productProps) {
-  
+}: productInLineProps) {
   const formatPrice = (value: number) => {
     return value.toLocaleString('pt-BR', {
       minimumFractionDigits: 2,
@@ -36,10 +35,7 @@ export default function ProductInLine({
       borderRadius="16px"
     >
       <Flex gap="16px" alignItems="center">
-        <CheckboxComponent 
-          isChecked={isSelected}
-          onChange={onToggleSelect} 
-        />
+        <CheckboxComponent isChecked={isSelected} onChange={onToggleSelect} />
         <Box
           width="100px"
           height="100px"
@@ -83,7 +79,7 @@ export default function ProductInLine({
           >
             <Button
               bgColor="#FFFFFF"
-              _hover={{ bgColor: "#f5f5f5" }}
+              _hover={{ bgColor: '#f5f5f5' }}
               borderRadius="0"
               width="32px"
               height="100%"
@@ -94,7 +90,7 @@ export default function ProductInLine({
             >
               -
             </Button>
-            
+
             <Input
               type="number"
               value={quantity}
@@ -106,7 +102,7 @@ export default function ProductInLine({
               borderRadius="0"
               color="#000000"
               padding="0"
-              _focus={{ outline: "none" }}
+              _focus={{ outline: 'none' }}
               css={{
                 '&::-webkit-inner-spin-button, &::-webkit-outer-spin-button': {
                   WebkitAppearance: 'none',
@@ -115,10 +111,10 @@ export default function ProductInLine({
                 MozAppearance: 'textfield',
               }}
             />
-            
+
             <Button
               bgColor="#FFFFFF"
-              _hover={{ bgColor: "#f5f5f5" }}
+              _hover={{ bgColor: '#f5f5f5' }}
               borderRadius="0"
               width="32px"
               height="100%"
@@ -130,14 +126,14 @@ export default function ProductInLine({
               +
             </Button>
           </Flex>
-          
+
           <Button
             variant="ghost"
             fontWeight="normal"
             fontSize="12px"
             color="#6B7280"
             pointerEvents={isInteractive ? 'auto' : 'none'}
-            _hover={{ color: "#FF6500", bgColor: "transparent" }}
+            _hover={{ color: '#FF6500', bgColor: 'transparent' }}
             size="sm"
             gap="4px"
             onClick={onRemove}
@@ -147,19 +143,24 @@ export default function ProductInLine({
           </Button>
         </Stack>
 
-        <Stack 
-          gap="0px" 
-          width="152px" 
-          flexShrink="0" 
-          textAlign="right"
-        >
-          <Text width="100%" fontWeight="normal" fontSize="10px" color="#6B7280">
-            <s>R$ {formatPrice((price * 1.1)*quantity)}</s>
+        <Stack gap="0px" width="152px" flexShrink="0" textAlign="right">
+          <Text
+            width="100%"
+            fontWeight="normal"
+            fontSize="10px"
+            color="#6B7280"
+          >
+            <s>R$ {formatPrice(price * 1.1 * quantity)}</s>
           </Text>
           <Text width="100%" fontWeight="bold" fontSize="20px" color="#FF6500">
             R$ {formatPrice(price * quantity)}
           </Text>
-          <Text width="100%" fontWeight="normal" fontSize="10px" color="#6B7280">
+          <Text
+            width="100%"
+            fontWeight="normal"
+            fontSize="10px"
+            color="#6B7280"
+          >
             À vista no PIX
           </Text>
         </Stack>

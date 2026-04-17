@@ -80,14 +80,6 @@ export default function Favorits() {
             />
           ))
         )}
-        <ProductInLine 
-          key="total"
-          name="Total"
-          price={0}
-          image=""
-          quantity={0}
-          onQuantityChange={() => {}}
-        />
       </Stack>
     </Flex>
   );
