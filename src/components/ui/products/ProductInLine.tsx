@@ -2,6 +2,7 @@ import { Box, Button, Flex, Image, Input, Stack, Text } from '@chakra-ui/react';
 import CheckboxComponent from '../Checkbox';
 import { FaTrash } from 'react-icons/fa';
 import type { productInLineProps } from '../../../types/productInLine.interface.';
+import { FaCartShopping } from 'react-icons/fa6';
 
 export default function ProductInLine({
   name,
@@ -13,6 +14,8 @@ export default function ProductInLine({
   isSelected = false,
   onToggleSelect,
   onRemove,
+  showQuantityControls = true,
+  onAddToCart,
 }: productInLineProps) {
   const formatPrice = (value: number) => {
     return value.toLocaleString('pt-BR', {
@@ -69,6 +72,8 @@ export default function ProductInLine({
 
       <Flex gap="24px" alignItems="center">
         <Stack gap="8px" alignItems="center" mt="16px">
+
+          {showQuantityControls !== false ? (
           <Flex
             border="1px solid"
             borderColor="#d8d8d8"
@@ -126,6 +131,24 @@ export default function ProductInLine({
               +
             </Button>
           </Flex>
+
+          ) : (
+
+          <Button
+            size="sm"
+            fontWeight="semibold"
+            fontSize="14px"
+            bgColor="#0060B1"
+            color="#FFFFFF"
+            borderRadius="8px"
+            _hover={{ bgColor: '#004A8C' }}
+            onClick={onAddToCart}
+          >
+            <FaCartShopping style={{ marginRight: '8px' }} />
+            Comprar
+          </Button>
+
+        )}
 
           <Button
             variant="ghost"

@@ -59,6 +59,20 @@ export default function Favorits() {
     }
   };
 
+  const handleAddToCart = async (productId: string) => {
+    if (!token) return;
+    try {
+      await axios.post(`${baseUrl}/cart/items`, 
+        { productId: productId, quantity: 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Produto adicionado ao carrinho com sucesso!");
+    } catch (error) {
+      console.error("Erro ao adicionar ao carrinho:", error);
+      alert("Erro ao adicionar o produto ao carrinho.");
+    }
+  };
+
   return (
     // Tiramos o gap e centralizamos o conteúdo do Flex
     <Flex width="100%" maxW="1200px" justifyContent="center" margin="0 auto" padding="24px 16px">
@@ -77,15 +91,16 @@ export default function Favorits() {
             return (
               <ProductInLine 
                 key={uniqueId}
-                name={item.productName}
+                name={item.productName} 
                 price={item.price} 
                 image={item.image} 
-                // Passamos quantidade 1 por padrão para o componente filho não bugar
                 quantity={1} 
-                // Função vazia pois favoritos não mexem em quantidade
                 onQuantityChange={() => {}} 
-                // Conectando a lixeira
                 onRemove={() => handleRemoveFavorite(uniqueId)}
+                
+                // AS DUAS NOVAS PROPS AQUI:
+                showQuantityControls={false} // Desliga o + e -
+                onAddToCart={() => handleAddToCart(uniqueId)} // Conecta o botão comprar
               />
             );
           })

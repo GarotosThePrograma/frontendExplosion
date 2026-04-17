@@ -8,4 +8,6 @@ export type productInLineProps = {
   isSelected?: boolean;
   onToggleSelect?: () => void;
   onRemove?: () => void;
+  showQuantityControls?: boolean;
+  onAddToCart?: () => void;
 };
